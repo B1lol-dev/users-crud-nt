@@ -1,6 +1,6 @@
 "use client";
 
-import { Mail, Phone, Edit, Trash2 } from "lucide-react";
+import { Mail, Phone, Edit, Trash2, Lock } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -56,6 +56,10 @@ const UserCard = ({ user, userId, onEdit, onDelete }: IUserCardProps) => {
           <div className="flex items-center text-sm">
             <Phone className="mr-2 h-4 w-4 text-gray-500" />
             <span>{user.phoneNumber}</span>
+          </div>
+          <div className="flex items-center text-sm">
+            <Lock className="mr-2 h-4 w-4 text-gray-500" />
+            <span>{user.password}</span>
           </div>
         </div>
       </CardContent>

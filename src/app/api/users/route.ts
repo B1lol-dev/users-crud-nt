@@ -53,12 +53,23 @@ export const POST = async (req: Request) => {
 export const PATCH = async (req: Request) => {
   try {
     const body = await req.json();
-    const { userId, newUsername } = body;
+    const { searchParams } = new URL(req.url);
+    const userId = searchParams.get("userId");
+
+    const { fullName, email, phoneNumber, regId, password, gender } = body;
 
     await connect();
-    if (!userId || !newUsername) {
+    if (
+      !userId ||
+      !fullName ||
+      !email ||
+      !phoneNumber ||
+      !regId ||
+      !password ||
+      !gender
+    ) {
       return new NextResponse(
-        JSON.stringify({ message: "Id or username not found" }),
+        JSON.stringify({ message: "Missing required fields" }),
         {
           status: 400,
         }
@@ -73,7 +84,7 @@ export const PATCH = async (req: Request) => {
 
     const updatedUser = await User.findOneAndUpdate(
       { _id: new ObjectId(userId) },
-      { username: newUsername },
+      { fullName, email, phoneNumber, regId, password, gender },
       { new: true }
     );
 
