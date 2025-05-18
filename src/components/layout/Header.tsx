@@ -32,7 +32,7 @@ const Header = () => {
           </form>
         </nav>
       </Container>
-      <Toaster />
+      <Toaster position="bottom-right" />
     </header>
   );
 };

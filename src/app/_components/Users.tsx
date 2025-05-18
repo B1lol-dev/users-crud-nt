@@ -8,11 +8,10 @@ import { IUserData } from "@/constants/interfaces";
 import toast from "react-hot-toast";
 
 const Users = () => {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<IUserData[]>([]);
 
   useEffect(() => {
     axios.get("/api/users").then((res) => {
-      console.log(res.data);
       setUsers(res.data);
     });
   }, []);
@@ -21,9 +20,10 @@ const Users = () => {
     axios
       .delete(`api/users?userId=${userId}`)
       .then((res) => {
-        console.log(res.data);
         toast.success(res.data.message);
-        location.reload();
+        setUsers((prevUsers: IUserData[]) =>
+          prevUsers.filter((user: IUserData) => user._id !== userId)
+        );
       })
       .catch((err) => toast.error(err.message));
   };

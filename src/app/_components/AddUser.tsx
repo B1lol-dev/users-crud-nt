@@ -53,6 +53,10 @@ function AddUserModal({ setShowModal }: IAddUserModalProps) {
       toast.error("Passwords should be identical!");
     }
 
+    if (!gender) {
+      return null;
+    }
+
     const newUser = {
       fullName,
       email,
@@ -64,7 +68,7 @@ function AddUserModal({ setShowModal }: IAddUserModalProps) {
 
     axios
       .post("/api/users", newUser)
-      .then((res) => console.log(res.data))
+      .then((res) => toast.success(res.data.message))
       .catch((e) => toast.error(e.message))
       .finally(() => {
         setShowModal(false);
